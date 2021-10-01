@@ -1,6 +1,6 @@
 {
   "name": "pull-update",
-  "version": "0.5.0",
+  "version": "0.7.0",
   "description": "Pull To Refresh",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
