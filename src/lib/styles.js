@@ -1,6 +1,5 @@
 export default `
 .__PREFIX__ptr {
-  box-shadow: inset 0 -3px 5px rgba(0, 0, 0, 0.12);
   pointer-events: none;
   font-size: 0.85em;
   font-weight: bold;
@@ -16,7 +15,6 @@ export default `
 }
 
 .__PREFIX__box {
-  padding: 10px;
   flex-basis: 100%;
 }
 
@@ -25,13 +23,8 @@ export default `
 }
 
 .__PREFIX__text {
-  margin-top: .33em;
+  margin-top: -1.6em;
   color: rgba(0, 0, 0, 0.3);
-}
-
-.__PREFIX__icon {
-  color: rgba(0, 0, 0, 0.3);
-  transition: transform .3s;
 }
 
 /*
@@ -40,9 +33,5 @@ listeners can take over.
 */
 .__PREFIX__top {
   touch-action: pan-x pan-down pinch-zoom;
-}
-
-.__PREFIX__release .__PREFIX__icon {
-  transform: rotate(180deg);
 }
 `;

@@ -27,7 +27,7 @@ try {
 
 function setupDOM(handler) {
   if (!handler.ptrElement) {
-    var ptr = document.createElement('div');
+    var ptr = document.createElement("div");
 
     if (handler.mainElement !== document.body) {
       handler.mainElement.parentNode.insertBefore(ptr, handler.mainElement);
@@ -39,21 +39,21 @@ function setupDOM(handler) {
     ptr.innerHTML = handler.getMarkup().replace(/__PREFIX__/g, handler.classPrefix);
     handler.ptrElement = ptr;
 
-    if (typeof handler.onInit === 'function') {
+    if (typeof handler.onInit === "function") {
       handler.onInit(handler);
     } // Add the css styles to the style node, and then
     // insert it into the dom
 
 
     if (!_shared.styleEl) {
-      _shared.styleEl = document.createElement('style');
+      _shared.styleEl = document.createElement("style");
 
-      _shared.styleEl.setAttribute('id', 'pull-to-refresh-js-style');
+      _shared.styleEl.setAttribute("id", "pull-to-refresh-js-style");
 
       document.head.appendChild(_shared.styleEl);
     }
 
-    _shared.styleEl.textContent = handler.getStyles().replace(/__PREFIX__/g, handler.classPrefix).replace(/\s+/g, ' ');
+    _shared.styleEl.textContent = handler.getStyles().replace(/__PREFIX__/g, handler.classPrefix).replace(/\s+/g, " ");
   }
 
   return handler;
@@ -62,7 +62,7 @@ function setupDOM(handler) {
 function onReset(handler) {
   if (!handler.ptrElement) { return; }
   handler.ptrElement.classList.remove(((handler.classPrefix) + "refresh"));
-  handler.ptrElement.style[handler.cssProp] = '0px';
+  handler.ptrElement.style[handler.cssProp] = "0px";
   setTimeout(function () {
     // remove previous ptr-element from DOM
     if (handler.ptrElement && handler.ptrElement.parentNode) {
@@ -71,33 +71,17 @@ function onReset(handler) {
     } // reset state
 
 
-    _shared.state = 'pending';
+    _shared.state = "pending";
   }, handler.refreshTimeout);
 }
 
 function update(handler) {
   var iconEl = handler.ptrElement.querySelector(("." + (handler.classPrefix) + "icon"));
-  var textEl = handler.ptrElement.querySelector(("." + (handler.classPrefix) + "text"));
+  var loadingElement = "<g transform='rotate(0 50 50)'><rect x='47.5' y='24' rx='2.5' ry='6' width='5' height='12' fill='#1886f8'>repeatCount='indefinite'></animate></rect></g><g transform='rotate(30 50 50)'><rect x='47.5' y='24' rx='2.5' ry='6' width='5' height='12' fill='#1886f8'><animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.8333333333333334s' repeatCount='indefinite'></animate></rect></g><g transform='rotate(60 50 50)'><rect x='47.5' y='24' rx='2.5' ry='6' width='5' height='12' fill='#1886f8'><animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.75s' repeatCount='indefinite'></animate></rect></g><g transform='rotate(90 50 50)'><rect x='47.5' y='24' rx='2.5' ry='6' width='5' height='12' fill='#1886f8'><animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.6666666666666666s' repeatCount='indefinite'></animate></rect></g><g transform='rotate(120 50 50)'><rect x='47.5' y='24' rx='2.5' ry='6' width='5' height='12' fill='#1886f8'><animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.5833333333333334s' repeatCount='indefinite'></animate></rect></g><g transform='rotate(150 50 50)'><rect x='47.5' y='24' rx='2.5' ry='6' width='5' height='12' fill='#1886f8'><animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.5s' repeatCount='indefinite'></animate></rect></g><g transform='rotate(180 50 50)'><rect x='47.5' y='24' rx='2.5' ry='6' width='5' height='12' fill='#1886f8'><animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.4166666666666667s' repeatCount='indefinite'></animate></rect></g><g transform='rotate(210 50 50)'><rect x='47.5' y='24' rx='2.5' ry='6' width='5' height='12' fill='#1886f8'><animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.3333333333333333s' repeatCount='indefinite'></animate>/rect></g><g transform='rotate(240 50 50)'><rect x='47.5' y='24' rx='2.5' ry='6' width='5' height='12' fill='#1886f8'><animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.25s' repeatCount='indefinite'></animate></rect></g><g transform='rotate(270 50 50)'><rect x='47.5' y='24' rx='2.5' ry='6' width='5' height='12' fill='#1886f8'><animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.16666666666666666s' repeatCount='indefinite'></animate></rect></g><g transform='rotate(300 50 50)'><rect x='47.5' y='24' rx='2.5' ry='6' width='5' height='12' fill='#1886f8'><animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='-0.08333333333333333s' repeatCount='indefinite'></animate></rect></g><g transform='rotate(330 50 50)'><rect x='47.5' y='24' rx='2.5' ry='6' width='5' height='12' fill='#1886f8'><animate attributeName='opacity' values='1;0' keyTimes='0;1' dur='1s' begin='0s' repeatCount='indefinite'></animate></rect></g>";
 
   if (iconEl) {
-    if (_shared.state === 'refreshing') {
-      iconEl.innerHTML = handler.iconRefreshing;
-    } else {
-      iconEl.innerHTML = handler.iconArrow;
-    }
-  }
-
-  if (textEl) {
-    if (_shared.state === 'releasing') {
-      textEl.innerHTML = handler.instructionsReleaseToRefresh;
-    }
-
-    if (_shared.state === 'pulling' || _shared.state === 'pending') {
-      textEl.innerHTML = handler.instructionsPullToRefresh;
-    }
-
-    if (_shared.state === 'refreshing') {
-      textEl.innerHTML = handler.instructionsRefreshing;
+    if (_shared.state === "refreshing") {
+      iconEl.innerHTML = "<div><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' style='margin: auto; background: transparent; display: block; shape-rendering: auto;' width='50px' height='50px' viewBox='0 0 100 100' preserveAspectRatio='xMidYMid'>" + loadingElement + "</svg></div>";
     }
   }
 }
@@ -296,7 +280,7 @@ var _setupEvents = (function () {
 
 var _ptrMarkup = "\n<div class=\"__PREFIX__box\">\n  <div class=\"__PREFIX__content\">\n    <div class=\"__PREFIX__icon\"></div>\n    <div class=\"__PREFIX__text\"></div>\n  </div>\n</div>\n";
 
-var _ptrStyles = "\n.__PREFIX__ptr {\n  box-shadow: inset 0 -3px 5px rgba(0, 0, 0, 0.12);\n  pointer-events: none;\n  font-size: 0.85em;\n  font-weight: bold;\n  top: 0;\n  height: 0;\n  transition: height 0.3s, min-height 0.3s;\n  text-align: center;\n  width: 100%;\n  overflow: hidden;\n  display: flex;\n  align-items: flex-end;\n  align-content: stretch;\n}\n\n.__PREFIX__box {\n  padding: 10px;\n  flex-basis: 100%;\n}\n\n.__PREFIX__pull {\n  transition: none;\n}\n\n.__PREFIX__text {\n  margin-top: .33em;\n  color: rgba(0, 0, 0, 0.3);\n}\n\n.__PREFIX__icon {\n  color: rgba(0, 0, 0, 0.3);\n  transition: transform .3s;\n}\n\n/*\nWhen at the top of the page, disable vertical overscroll so passive touch\nlisteners can take over.\n*/\n.__PREFIX__top {\n  touch-action: pan-x pan-down pinch-zoom;\n}\n\n.__PREFIX__release .__PREFIX__icon {\n  transform: rotate(180deg);\n}\n";
+var _ptrStyles = "\n.__PREFIX__ptr {\n  pointer-events: none;\n  font-size: 0.85em;\n  font-weight: bold;\n  top: 0;\n  height: 0;\n  transition: height 0.3s, min-height 0.3s;\n  text-align: center;\n  width: 100%;\n  overflow: hidden;\n  display: flex;\n  align-items: flex-end;\n  align-content: stretch;\n}\n\n.__PREFIX__box {\n  flex-basis: 100%;\n}\n\n.__PREFIX__pull {\n  transition: none;\n}\n\n.__PREFIX__text {\n  margin-top: -1.6em;\n  color: rgba(0, 0, 0, 0.3);\n}\n\n/*\nWhen at the top of the page, disable vertical overscroll so passive touch\nlisteners can take over.\n*/\n.__PREFIX__top {\n  touch-action: pan-x pan-down pinch-zoom;\n}\n";
 
 var _defaults = {
   distThreshold: 60,
