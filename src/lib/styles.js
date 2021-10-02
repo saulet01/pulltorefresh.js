@@ -22,11 +22,6 @@ export default `
   transition: none;
 }
 
-.__PREFIX__text {
-  margin-top: -1.6em;
-  color: rgba(0, 0, 0, 0.3);
-}
-
 /*
 When at the top of the page, disable vertical overscroll so passive touch
 listeners can take over.
